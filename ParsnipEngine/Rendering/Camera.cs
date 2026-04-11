@@ -26,10 +26,10 @@ namespace ParsnipEngine.Rendering
         /// Calculates the top-left world position of this camera.
         /// </summary>
         /// <returns>The result of the calculation.</returns>
-        public Vector2 TopLeft()
+        public Vector2 SizeOver2()
         {
             Vector2 size = new Vector2(ReferenceScreenResolution.X, ReferenceScreenResolution.Y) * Scale;
-            return Position - (size / 2);
+            return size / 2;
         }
 
         /// <summary>
@@ -77,8 +77,10 @@ namespace ParsnipEngine.Rendering
         /// <returns><paramref name="worldPosition"/> as a screen position.</returns>
         public Vector2 WorldToScreenPosition(Vector2 worldPosition)
         {
-            Vector2 topLeft = TopLeft();
-            return worldPosition - topLeft;
+            Vector2 halfSize = SizeOver2();
+            worldPosition -= Position;
+
+            return worldPosition + halfSize;
         }
 
         /// <summary>

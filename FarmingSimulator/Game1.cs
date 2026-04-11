@@ -63,7 +63,21 @@ namespace FarmingSimulator
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            var keyboardState = Keyboard.GetState();
+
+            float cameraScale = Camera.Main.Scale;
+
+            if (keyboardState.IsKeyDown(Keys.OemComma))
+            {
+                cameraScale += 0.25f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            if (keyboardState.IsKeyDown(Keys.OemPeriod))
+            {
+                cameraScale -= 0.25f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+
+            cameraScale = (cameraScale < 0) ? 0 : cameraScale;
+            Camera.Main.SetScale(cameraScale);
 
             base.Update(gameTime);
         }
