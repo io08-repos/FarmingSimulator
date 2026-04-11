@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../ParsnipEngine/ParsnipEngine.csproj" />
+  <Project Path="FarmingSimulator.csproj" />
+</Solution>
