@@ -69,11 +69,11 @@ namespace FarmingSimulator
 
             if (keyboardState.IsKeyDown(Keys.OemComma))
             {
-                cameraScale += 0.25f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                cameraScale += 1f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             if (keyboardState.IsKeyDown(Keys.OemPeriod))
             {
-                cameraScale -= 0.25f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                cameraScale -= 1f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             cameraScale = (cameraScale < 0) ? 0 : cameraScale;
@@ -86,7 +86,14 @@ namespace FarmingSimulator
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(
+                sortMode: SpriteSortMode.Deferred,
+                samplerState: SamplerState.PointClamp,
+                depthStencilState: null,
+                rasterizerState: null,
+                effect: null,
+                transformMatrix: null
+            );
 
             _tilemapRenderer.DrawTilemap(_tilemap, _spriteBatch);
 
