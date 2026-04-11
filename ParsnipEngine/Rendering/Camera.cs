@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Diagnostics;
 
 namespace ParsnipEngine.Rendering
 {
