@@ -16,6 +16,7 @@ namespace ParsnipEngine.Rendering.Components
      *  - Add a private list of source rectangles to this class.
      *  - Extend the SetSpritesheet() method so that it triggers source rectangle caching.
      *  - Modify the GetSourceRectangle() method to perform an array lookup by index.
+     *  - Finally, make a static function that creates a new TilemapRenderer, and returns it.
      */
 
     /// <summary>
