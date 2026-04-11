@@ -11,13 +11,20 @@ namespace ParsnipEngine.Rendering
     /// </summary>
     public class SpriteAtlas
     {
+        /// <summary>
+        /// Singleton reference for the SpriteAtlas.
+        /// </summary>
         public static SpriteAtlas Instance { get; private set; } = new SpriteAtlas();
 
+        // Constructor.
         private SpriteAtlas()
         {
             Instance = this;
         }
 
+        /// <summary>
+        /// Sprites indexed by asset name.
+        /// </summary>
         private readonly Dictionary<string, Texture2D> _sprites = [];
         private const string _spritePath = @"Images/";
 

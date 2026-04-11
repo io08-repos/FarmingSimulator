@@ -24,6 +24,13 @@ namespace FarmingSimulator
 
         protected override void Initialize()
         {
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 720;
+
+            _graphics.ApplyChanges();
+
+            Camera.Initialize(Vector2.Zero, 1f, _graphics);
+
             base.Initialize();
         }
 
