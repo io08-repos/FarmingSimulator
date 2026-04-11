@@ -10,7 +10,7 @@ namespace ParsnipEngine.Rendering
         /// <summary>
         /// Screen resolution used as reference for viewport scaling.
         /// </summary>
-        public static Point ReferenceScreenResolution { get; private set; }
+        public static GraphicsDeviceManager GraphicsDevice { get; private set; }
 
         /// <summary>
         /// Camera position (in world units).
@@ -26,9 +26,9 @@ namespace ParsnipEngine.Rendering
         /// Calculates the top-left world position of this camera.
         /// </summary>
         /// <returns>The result of the calculation.</returns>
-        public Vector2 SizeOver2()
+        public static Vector2 SizeOver2()
         {
-            Vector2 size = new Vector2(ReferenceScreenResolution.X, ReferenceScreenResolution.Y) * Scale;
+            Vector2 size = new (GraphicsDevice.PreferredBackBufferWidth, GraphicsDevice.PreferredBackBufferHeight);
             return size / 2;
         }
 
@@ -51,9 +51,7 @@ namespace ParsnipEngine.Rendering
         /// <param name="scale">Initial camera size.</param>
         public static void Initialize(Vector2 position, float scale, GraphicsDeviceManager graphicsDevice)
         {
-            int screenWidth = graphicsDevice.PreferredBackBufferWidth;
-            int screenHeight = graphicsDevice.PreferredBackBufferHeight;
-            ReferenceScreenResolution = new Point(screenWidth, screenHeight);
+            GraphicsDevice = graphicsDevice;
 
             Main = new Camera(position, scale);
         }
