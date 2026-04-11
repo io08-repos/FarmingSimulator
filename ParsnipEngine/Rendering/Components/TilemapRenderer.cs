@@ -77,9 +77,10 @@ namespace ParsnipEngine.Rendering.Components
                     Vector2 position = new Vector2(x, y) * TileResolution;
                     Rectangle sourceRectangle = GetSourceRectangle(tileIndex);
 
+                    float scale = Camera.Main.PixelResolutionScaleFactor(TileResolution);
                     position = Camera.Main.WorldToScreenPosition(position);
 
-                    spriteBatch.Draw(Spritesheet, position, sourceRectangle, Color.White);
+                    spriteBatch.Draw(Spritesheet, position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
                 }
             }
         }
