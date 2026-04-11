@@ -29,7 +29,7 @@ namespace FarmingSimulator
 
             _graphics.ApplyChanges();
 
-            Camera.Initialize(position: Vector2.Zero, scale: 0.5f, graphicsDevice: _graphics);
+            Camera.Initialize(position: Vector2.Zero, scale: 2f, graphicsDevice: _graphics);
 
             base.Initialize();
         }
