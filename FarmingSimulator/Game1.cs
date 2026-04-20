@@ -15,6 +15,8 @@ namespace FarmingSimulator
         private TilemapRenderer _tilemapRenderer;
         private Tilemap _tilemap;
 
+        private SpriteRenderer _spriteRenderer;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -39,6 +41,10 @@ namespace FarmingSimulator
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             SpriteAtlas.Instance.LoadSprite(this, "tlm_ground");
+            SpriteAtlas.Instance.LoadSprite(this, "spr_square");
+
+            var sprite = SpriteAtlas.Instance.GetSprite("spr_square");
+            _spriteRenderer = SpriteRenderer.Create(sprite);
 
             var spritesheet = SpriteAtlas.Instance.GetSprite("tlm_ground");
             _tilemapRenderer = new TilemapRenderer(spritesheet, 16);
@@ -95,7 +101,9 @@ namespace FarmingSimulator
                 transformMatrix: null
             );
 
-            _tilemapRenderer.DrawTilemap(_tilemap, _spriteBatch);
+            //_tilemapRenderer.DrawTilemap(_tilemap, _spriteBatch);
+
+            _spriteRenderer.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

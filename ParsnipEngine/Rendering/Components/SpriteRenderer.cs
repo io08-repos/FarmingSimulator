@@ -20,6 +20,23 @@ namespace ParsnipEngine.Rendering.Components
         /// </summary>
         public Color ShaderColor { get; private set; } = Color.White;
 
+        // Constructor.
+        private SpriteRenderer() { }
+
+        /// <summary>
+        /// Creates a new SpriteRenderer component, ready for use.
+        /// </summary>
+        /// <param name="sprite">Sprite to be used by this renderer.</param>
+        public static SpriteRenderer Create(Texture2D sprite)
+        {
+            var renderer = new SpriteRenderer
+            {
+                Sprite = sprite
+            };
+
+            return renderer;
+        }
+
         /// <summary>
         /// Draws this renderer's sprite.
         /// </summary>
@@ -29,7 +46,7 @@ namespace ParsnipEngine.Rendering.Components
             float scaleX = Camera.Main.PixelResolutionScaleFactor(Sprite.Width);
             float scaleY = Camera.Main.PixelResolutionScaleFactor(Sprite.Height);
             
-            Vector2 scale = new Vector2(scaleX, scaleY);
+            Vector2 scale = new (scaleX, scaleY);
             Vector2 position = Camera.Main.WorldToScreenPosition(Vector2.Zero);
 
             spriteBatch.Draw(Sprite, position, null, ShaderColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
