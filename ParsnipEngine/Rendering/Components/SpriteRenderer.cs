@@ -41,12 +41,28 @@ namespace ParsnipEngine.Rendering.Components
         /// Draws this renderer's sprite.
         /// </summary>
         /// <param name="spriteBatch">Batch used to draw this renderer's sprite.</param>
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        {
+            float scaleX = Camera.Main.PixelResolutionScaleFactor(Sprite.Width);
+            float scaleY = Camera.Main.PixelResolutionScaleFactor(Sprite.Height);
+
+            Vector2 scale = new(scaleX, scaleY);
+            position = Camera.PixelToWorldPosition(position, scale);
+            position = Camera.Main.WorldToScreenPosition(position);
+
+            spriteBatch.Draw(Sprite, position, null, ShaderColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+        }
+
+        /// <summary>
+        /// Draws this renderer's sprite.
+        /// </summary>
+        /// <param name="spriteBatch">Batch used to draw this renderer's sprite.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             float scaleX = Camera.Main.PixelResolutionScaleFactor(Sprite.Width);
             float scaleY = Camera.Main.PixelResolutionScaleFactor(Sprite.Height);
-            
             Vector2 scale = new (scaleX, scaleY);
+            
             Vector2 position = Camera.Main.WorldToScreenPosition(Vector2.Zero);
 
             spriteBatch.Draw(Sprite, position, null, ShaderColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);

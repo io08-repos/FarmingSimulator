@@ -69,12 +69,23 @@ namespace ParsnipEngine.Rendering
         public void SetScale(float scale) => Scale = scale;
 
         /// <summary>
-        /// Converts a given pixel position (with <see cref="Position"/> as the top-left anchor) into a world position by scaling.
+        /// Converts a given pixel position (with <see cref="Position"/> as the top-left anchor) into a world position using a scale factor. <br/>
+        /// Use this function to scale world positions before transformation.
         /// </summary>
         /// <param name="pixelPosition">Similar to a "screen position", but anchored to <see cref="Position"/> by the top-left corner.</param>
         /// <param name="scaleFactor">Scaling applied to <paramref name="pixelPosition"/>.</param>
         /// <returns>The resulting world position.</returns>
         public static Vector2 PixelToWorldPosition(Vector2 pixelPosition, float scaleFactor)
+            => pixelPosition * scaleFactor;
+
+        /// <summary>
+        /// Converts a given pixel position (with <see cref="Position"/> as the top-left anchor) into a world position using a scale factor. <br/>
+        /// Use this function to scale world positions before transformation.
+        /// </summary>
+        /// <param name="pixelPosition">Similar to a "screen position", but anchored to <see cref="Position"/> by the top-left corner.</param>
+        /// <param name="scaleFactor">Scaling applied to <paramref name="pixelPosition"/>.</param>
+        /// <returns>The resulting world position.</returns>
+        public static Vector2 PixelToWorldPosition(Vector2 pixelPosition, Vector2 scaleFactor)
             => pixelPosition * scaleFactor;
 
         /// <summary>
