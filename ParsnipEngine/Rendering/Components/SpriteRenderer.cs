@@ -47,7 +47,6 @@ namespace ParsnipEngine.Rendering.Components
             float scaleY = Camera.Main.PixelResolutionScaleFactor(Sprite.Height);
 
             Vector2 scale = new(scaleX, scaleY);
-            position = Camera.PixelToWorldPosition(position, scale);
             position = Camera.Main.WorldToScreenPosition(position);
 
             spriteBatch.Draw(Sprite, position, null, ShaderColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
