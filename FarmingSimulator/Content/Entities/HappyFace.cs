@@ -19,7 +19,6 @@ namespace FarmingSimulator.Content.Entities
             var sprite = SpriteAtlas.Instance.GetSprite("spr_happycircle");
             var spriteRenderer = SpriteRenderer.Create(sprite, this);
             AddComponent(spriteRenderer);
-
         }
 
         public override void Update(GameTime gameTime)

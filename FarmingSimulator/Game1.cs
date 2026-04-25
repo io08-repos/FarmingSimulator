@@ -70,7 +70,7 @@ namespace FarmingSimulator
             _tilemap = Tilemap.CreateTilemap(width, height, map);
             _tilemapRenderer.SetTilemap(_tilemap);
 
-            _entityDTO = EntityDTO.Create("HappyFace", 0, 0, 1000);
+            _entityDTO = EntityDTO.Create("HappyFace", 0, 0, 10);
             _entity = EntityRegistry.Instance.Create(_entityDTO);
         }
 
@@ -127,7 +127,7 @@ namespace FarmingSimulator
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(
-                sortMode: SpriteSortMode.FrontToBack,
+                sortMode: SpriteSortMode.Deferred,
                 samplerState: SamplerState.PointClamp,
                 depthStencilState: null,
                 rasterizerState: null,
@@ -139,7 +139,9 @@ namespace FarmingSimulator
 
             //_spriteRenderer.Draw(_spriteBatch);
 
-            RenderManager.Instance.DrawAll(_spriteBatch);
+            _entity.GetComponent<SpriteRenderer>().Draw(_spriteBatch);
+
+            //RenderManager.Instance.DrawAll(_spriteBatch);
 
             _spriteBatch.End();
 
