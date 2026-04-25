@@ -139,9 +139,9 @@ namespace FarmingSimulator
 
             //_spriteRenderer.Draw(_spriteBatch);
 
-            _entity.GetComponent<SpriteRenderer>().Draw(_spriteBatch);
+            //_entity.GetComponent<SpriteRenderer>().Draw(_spriteBatch);
 
-            //RenderManager.Instance.DrawAll(_spriteBatch);
+            RenderManager.Instance.DrawAll(_spriteBatch);
 
             _spriteBatch.End();
 
