@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ParsnipEngine.Entities;
 using ParsnipEngine.Tilemaps;
 
 namespace ParsnipEngine.Rendering.Components
@@ -22,7 +23,7 @@ namespace ParsnipEngine.Rendering.Components
     /// <summary>
     /// Renderer component used to draw tilemaps using a spritesheet as the palette.
     /// </summary>
-    public class TilemapRenderer(Texture2D spritesheet, int tileResolution) : Renderer
+    public class TilemapRenderer(Texture2D spritesheet, int tileResolution, int layer) : Renderer(Entity.Empty)
     {
         /// <summary>
         /// Tile palette for this renderer.
@@ -33,6 +34,11 @@ namespace ParsnipEngine.Rendering.Components
         /// Resolution (in pixel units) of each square tile in the palette.
         /// </summary>
         public int TileResolution { get; private set; } = tileResolution;
+
+        /// <summary>
+        /// Layer depth of this tilemap renderer.
+        /// </summary>
+        public float Layer { get; private set; } = layer / 10f;
 
         // Tilemap structure linked to this renderer.
         private Tilemap _map;
@@ -91,7 +97,7 @@ namespace ParsnipEngine.Rendering.Components
                     position = Camera.PixelToWorldPosition(position, scale);
                     position = Camera.Main.WorldToScreenPosition(position);
 
-                    spriteBatch.Draw(Spritesheet, position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(Spritesheet, position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, Layer);
                 }
             }
         }

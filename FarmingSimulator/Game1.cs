@@ -53,7 +53,7 @@ namespace FarmingSimulator
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             var spritesheet = SpriteAtlas.Instance.GetSprite("tlm_ground");
-            _tilemapRenderer = new TilemapRenderer(spritesheet, 16);
+            _tilemapRenderer = new TilemapRenderer(spritesheet, 16, 0);
 
             int width = 8, height = 8;
             int[] map = [
@@ -70,7 +70,7 @@ namespace FarmingSimulator
             _tilemap = Tilemap.CreateTilemap(width, height, map);
             _tilemapRenderer.SetTilemap(_tilemap);
 
-            _entityDTO = EntityDTO.Create("HappyFace", 0, 0, 1);
+            _entityDTO = EntityDTO.Create("HappyFace", 0, 0, 1000);
             _entity = EntityRegistry.Instance.Create(_entityDTO);
         }
 

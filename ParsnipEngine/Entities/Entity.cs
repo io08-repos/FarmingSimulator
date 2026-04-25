@@ -11,6 +11,8 @@ namespace ParsnipEngine.Entities
     /// </summary>
     public abstract class Entity
     {
+        public static readonly Entity Empty = null!;
+
         /// <summary>
         /// World position of this entity.
         /// </summary>
