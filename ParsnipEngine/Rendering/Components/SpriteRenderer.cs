@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ParsnipEngine.Entities;
 
 namespace ParsnipEngine.Rendering.Components
 {
@@ -8,7 +9,7 @@ namespace ParsnipEngine.Rendering.Components
     /// 
     /// NOTE: This should be used within entity objects later in development!
     /// </summary>
-    public class SpriteRenderer
+    public class SpriteRenderer : Renderer
     {
         /// <summary>
         /// The sprite used by this renderer component as the texture during the drawing phase.
@@ -20,16 +21,17 @@ namespace ParsnipEngine.Rendering.Components
         /// </summary>
         public Color ShaderColor { get; private set; } = Color.White;
 
+
         // Constructor.
-        private SpriteRenderer() { }
+        private SpriteRenderer(Entity parent) : base(parent) { }
 
         /// <summary>
         /// Creates a new SpriteRenderer component, ready for use.
         /// </summary>
         /// <param name="sprite">Sprite to be used by this renderer.</param>
-        public static SpriteRenderer Create(Texture2D sprite)
+        public static SpriteRenderer Create(Texture2D sprite, Entity parent)
         {
-            var renderer = new SpriteRenderer
+            var renderer = new SpriteRenderer(parent)
             {
                 Sprite = sprite
             };
@@ -41,30 +43,16 @@ namespace ParsnipEngine.Rendering.Components
         /// Draws this renderer's sprite.
         /// </summary>
         /// <param name="spriteBatch">Batch used to draw this renderer's sprite.</param>
-        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             float scaleX = Camera.Main.PixelResolutionScaleFactor(Sprite.Width);
             float scaleY = Camera.Main.PixelResolutionScaleFactor(Sprite.Height);
 
             Vector2 scale = new(scaleX, scaleY);
-            position = Camera.Main.WorldToScreenPosition(position);
+            Parent.Position = Camera.PixelToWorldPosition(Parent.Position, scale);
+            Parent.Position = Camera.Main.WorldToScreenPosition(Parent.Position);
 
-            spriteBatch.Draw(Sprite, position, null, ShaderColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-        }
-
-        /// <summary>
-        /// Draws this renderer's sprite.
-        /// </summary>
-        /// <param name="spriteBatch">Batch used to draw this renderer's sprite.</param>
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            float scaleX = Camera.Main.PixelResolutionScaleFactor(Sprite.Width);
-            float scaleY = Camera.Main.PixelResolutionScaleFactor(Sprite.Height);
-            Vector2 scale = new (scaleX, scaleY);
-            
-            Vector2 position = Camera.Main.WorldToScreenPosition(Vector2.Zero);
-
-            spriteBatch.Draw(Sprite, position, null, ShaderColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Sprite, Parent.Position, null, ShaderColor, 0f, Vector2.Zero, scale, SpriteEffects.None, Parent.Layer);
         }
     }
 }

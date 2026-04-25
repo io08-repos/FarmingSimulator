@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ParsnipEngine.Entities;
 
 namespace ParsnipEngine.Interfaces
 {
@@ -11,6 +7,14 @@ namespace ParsnipEngine.Interfaces
     /// </summary>
     public interface IComponent
     {
+        /// <summary>
+        /// Component state (enabled or disabled)
+        /// </summary>
+        bool Enabled { get; set; }
 
+        /// <summary>
+        /// Parent entity of this component.
+        /// </summary>
+        Entity Parent { get; set; }
     }
 }

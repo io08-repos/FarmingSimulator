@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FarmingSimulator.Content.Entities;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ParsnipEngine.Entities;
 using ParsnipEngine.Rendering;
 using ParsnipEngine.Rendering.Components;
 using ParsnipEngine.Tilemaps;
@@ -18,6 +21,9 @@ namespace FarmingSimulator
         private SpriteRenderer _spriteRenderer;
         private Vector2 _position = Vector2.Zero;
 
+        private Entity _entity;
+        private EntityDTO _entityDTO;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -32,7 +38,12 @@ namespace FarmingSimulator
 
             _graphics.ApplyChanges();
 
+            SpriteAtlas.Instance.LoadSprite(this, "tlm_ground");
+            SpriteAtlas.Instance.LoadSprite(this, "spr_happycircle");
+
             Camera.Initialize(position: Vector2.Zero, scale: 2f, graphicsDevice: _graphics);
+            RenderManager.Initialize();
+            EntityRegistry.Initialize();
 
             base.Initialize();
         }
@@ -40,12 +51,6 @@ namespace FarmingSimulator
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            SpriteAtlas.Instance.LoadSprite(this, "tlm_ground");
-            SpriteAtlas.Instance.LoadSprite(this, "spr_happycircle");
-
-            var sprite = SpriteAtlas.Instance.GetSprite("spr_happycircle");
-            _spriteRenderer = SpriteRenderer.Create(sprite);
 
             var spritesheet = SpriteAtlas.Instance.GetSprite("tlm_ground");
             _tilemapRenderer = new TilemapRenderer(spritesheet, 16);
@@ -63,6 +68,10 @@ namespace FarmingSimulator
             ];
 
             _tilemap = Tilemap.CreateTilemap(width, height, map);
+            _tilemapRenderer.SetTilemap(_tilemap);
+
+            _entityDTO = EntityDTO.Create("HappyFace", 0, 0, 1);
+            _entity = EntityRegistry.Instance.Create(_entityDTO);
         }
 
         protected override void Update(GameTime gameTime)
@@ -106,8 +115,9 @@ namespace FarmingSimulator
             Camera.Main.SetScale(cameraScale);
             Camera.Main.SetPosition(cameraPosition);
 
-            _position.X = -8 + (float)(System.Math.Sin(gameTime.TotalGameTime.TotalSeconds) * 8f);
-            _position.Y = -8 - (float)(System.Math.Cos(gameTime.TotalGameTime.TotalSeconds) * 8f);
+            //_position.X = -8 + (float)(System.Math.Sin(gameTime.TotalGameTime.TotalSeconds) * 8f);
+            //_position.Y = -8 - (float)(System.Math.Cos(gameTime.TotalGameTime.TotalSeconds) * 8f);
+            //_spriteRenderer.position = _position;
 
             base.Update(gameTime);
         }
@@ -117,7 +127,7 @@ namespace FarmingSimulator
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(
-                sortMode: SpriteSortMode.Deferred,
+                sortMode: SpriteSortMode.FrontToBack,
                 samplerState: SamplerState.PointClamp,
                 depthStencilState: null,
                 rasterizerState: null,
@@ -125,9 +135,11 @@ namespace FarmingSimulator
                 transformMatrix: null
             );
 
-            _tilemapRenderer.DrawTilemap(_tilemap, _spriteBatch);
+            //_tilemapRenderer.Draw(_spriteBatch);
 
-            _spriteRenderer.Draw(_spriteBatch, _position);
+            //_spriteRenderer.Draw(_spriteBatch);
+
+            RenderManager.Instance.DrawAll(_spriteBatch);
 
             _spriteBatch.End();
 

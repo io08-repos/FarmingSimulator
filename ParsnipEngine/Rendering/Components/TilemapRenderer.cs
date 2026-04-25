@@ -22,7 +22,7 @@ namespace ParsnipEngine.Rendering.Components
     /// <summary>
     /// Renderer component used to draw tilemaps using a spritesheet as the palette.
     /// </summary>
-    public class TilemapRenderer(Texture2D spritesheet, int tileResolution)
+    public class TilemapRenderer(Texture2D spritesheet, int tileResolution) : Renderer
     {
         /// <summary>
         /// Tile palette for this renderer.
@@ -33,6 +33,9 @@ namespace ParsnipEngine.Rendering.Components
         /// Resolution (in pixel units) of each square tile in the palette.
         /// </summary>
         public int TileResolution { get; private set; } = tileResolution;
+
+        // Tilemap structure linked to this renderer.
+        private Tilemap _map;
 
         /// <summary>
         /// Creates a source rectangle for tiles in a spritesheet using a single index value.
@@ -63,17 +66,24 @@ namespace ParsnipEngine.Rendering.Components
             => Spritesheet = value;
 
         /// <summary>
+        /// Replaces the currently stored tilemap.
+        /// </summary>
+        /// <param name="value">New tilemap.</param>
+        public void SetTilemap(Tilemap value)
+            => _map = value;
+
+        /// <summary>
         /// Draws tiles in a given tilemap using the currently active sprite batch.
         /// </summary>
         /// <param name="map">Tilemap data.</param>
         /// <param name="spriteBatch">Active sprite batch.</param>
-        public void DrawTilemap(Tilemap map, SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            for (int x = 0; x < map.Width; x++)
+            for (int x = 0; x < _map.Width; x++)
             {
-                for (int y = 0; y < map.Height; y++)
+                for (int y = 0; y < _map.Height; y++)
                 {
-                    int tileIndex = map.Tiles[x, y];
+                    int tileIndex = _map.Tiles[x, y];
                     Vector2 position = new Vector2(x, y) * TileResolution;
                     Rectangle sourceRectangle = GetSourceRectangle(tileIndex);
 
