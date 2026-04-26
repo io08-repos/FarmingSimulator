@@ -82,6 +82,8 @@ namespace FarmingSimulator
                 cameraScale -= 1f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
+            SceneManager.Update(gameTime);
+
             cameraScale = (cameraScale < 0) ? 0 : cameraScale;
             Camera.Main.SetScale(cameraScale);
             Camera.Main.SetPosition(cameraPosition);
