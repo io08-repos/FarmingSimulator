@@ -5,7 +5,6 @@ using ParsnipEngine.Rendering.Components;
 using ParsnipEngine.Tilemaps;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 
 namespace ParsnipEngine.Scenes
