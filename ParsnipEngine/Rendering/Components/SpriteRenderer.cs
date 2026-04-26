@@ -49,10 +49,10 @@ namespace ParsnipEngine.Rendering.Components
             float scaleY = Camera.Main.PixelResolutionScaleFactor(Sprite.Height);
 
             Vector2 scale = new(scaleX, scaleY);
-            Parent.Position = Camera.PixelToWorldPosition(Parent.Position, scale);
-            Parent.Position = Camera.Main.WorldToScreenPosition(Parent.Position);
+            var position = Camera.PixelToWorldPosition(Parent.Position, scale);
+            position = Camera.Main.WorldToScreenPosition(position);
 
-            spriteBatch.Draw(Sprite, Parent.Position, null, ShaderColor, 0f, Vector2.Zero, scale, SpriteEffects.None, Parent.Layer);
+            spriteBatch.Draw(Sprite, position, null, ShaderColor, 0f, Vector2.Zero, scale, SpriteEffects.None, Parent.Layer);
         }
     }
 }

@@ -3,6 +3,7 @@ using ParsnipEngine.Interfaces;
 
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace ParsnipEngine.Entities
 {
@@ -69,5 +70,33 @@ namespace ParsnipEngine.Entities
         /// <returns>The component of the given type (if it exists).</returns>
         public T? GetComponent<T>() where T : IComponent
             => _components.TryGetValue(typeof(T), out IComponent value) ? (T) value : default;
+
+        /// <summary>
+        /// Converts JSON element into an array of entities.
+        /// </summary>
+        /// <param name="root">JSON element.</param>
+        /// <returns>Array of entities listed in the JSON element.</returns>
+        public static Entity[] FromJSON(JsonElement root)
+        {
+            JsonElement dtos = root.GetProperty("entities");
+            Entity[] entities = new Entity[dtos.GetArrayLength()];
+
+            for (int i = 0; i < entities.Length; i++)
+            {
+                JsonElement dtoElement = dtos[i];
+
+                string entityType = dtoElement.GetProperty("type").GetString();
+                float x = (float) dtoElement.GetProperty("x").GetDouble();
+                float y = (float) dtoElement.GetProperty("y").GetDouble();
+                int layer = dtoElement.GetProperty("layer").GetInt32();
+
+                EntityDTO dto = EntityDTO.Create(entityType, x, y, layer);
+                Entity entity = EntityRegistry.Instance.Create(dto);
+
+                entities[i] = entity;
+            }
+
+            return entities;
+        }
     }
 }

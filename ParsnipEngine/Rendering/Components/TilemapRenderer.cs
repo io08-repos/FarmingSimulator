@@ -23,8 +23,11 @@ namespace ParsnipEngine.Rendering.Components
     /// <summary>
     /// Renderer component used to draw tilemaps using a spritesheet as the palette.
     /// </summary>
-    public class TilemapRenderer(Texture2D spritesheet, int tileResolution, int layer) : Renderer(Entity.Empty)
+    public class TilemapRenderer(Texture2D spritesheet, Tilemap map, int tileResolution, int layer) : Renderer(Entity.Empty)
     {
+        // Tilemap structure linked to this renderer.
+        private Tilemap _map = map;
+
         /// <summary>
         /// Tile palette for this renderer.
         /// </summary>
@@ -38,10 +41,7 @@ namespace ParsnipEngine.Rendering.Components
         /// <summary>
         /// Layer depth of this tilemap renderer.
         /// </summary>
-        public float Layer { get; private set; } = layer / 10f;
-
-        // Tilemap structure linked to this renderer.
-        private Tilemap _map;
+        public float Layer { get; private set; } = layer / 1000f;
 
         /// <summary>
         /// Creates a source rectangle for tiles in a spritesheet using a single index value.
