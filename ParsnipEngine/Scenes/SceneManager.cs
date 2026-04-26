@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ParsnipEngine.Entities;
-using ParsnipEngine.Tilemaps;
 using System;
 using System.Collections.Generic;
 using System.IO;
