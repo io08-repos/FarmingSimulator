@@ -27,9 +27,11 @@ namespace FarmingSimulator
 
             _graphics.ApplyChanges();
 
+            SpriteAtlas.Instance.LoadSprite(this, "tlm_solid");
             SpriteAtlas.Instance.LoadSprite(this, "tlm_ground");
             SpriteAtlas.Instance.LoadSprite(this, "tlm_ground_big");
             SpriteAtlas.Instance.LoadSprite(this, "spr_happycircle");
+            SpriteAtlas.Instance.LoadSprite(this, "spr_square");
 
             Camera.Initialize(position: Vector2.Zero, scale: 2f, graphicsDevice: _graphics);
             RenderManager.Initialize();
@@ -53,25 +55,25 @@ namespace FarmingSimulator
             var keyboardState = Keyboard.GetState();
 
             float cameraScale = Camera.Main.Scale;
-            float cameraSpeed = 400f;
-            Vector2 cameraPosition = Camera.Main.Position;
+            //float cameraSpeed = 400f;
+            //Vector2 cameraPosition = Camera.Main.Position;
 
-            if (keyboardState.IsKeyDown(Keys.Left))
-            {
-                cameraPosition -= (float)gameTime.ElapsedGameTime.TotalSeconds * cameraSpeed * Vector2.UnitX;
-            }
-            if (keyboardState.IsKeyDown(Keys.Right))
-            {
-                cameraPosition += (float)gameTime.ElapsedGameTime.TotalSeconds * cameraSpeed * Vector2.UnitX;
-            }
-            if (keyboardState.IsKeyDown(Keys.Up))
-            {
-                cameraPosition -= (float)gameTime.ElapsedGameTime.TotalSeconds * cameraSpeed * Vector2.UnitY;
-            }
-            if (keyboardState.IsKeyDown(Keys.Down))
-            {
-                cameraPosition += (float)gameTime.ElapsedGameTime.TotalSeconds * cameraSpeed * Vector2.UnitY;
-            }
+            //if (keyboardState.IsKeyDown(Keys.Left))
+            //{
+            //    cameraPosition -= (float)gameTime.ElapsedGameTime.TotalSeconds * cameraSpeed * Vector2.UnitX;
+            //}
+            //if (keyboardState.IsKeyDown(Keys.Right))
+            //{
+            //    cameraPosition += (float)gameTime.ElapsedGameTime.TotalSeconds * cameraSpeed * Vector2.UnitX;
+            //}
+            //if (keyboardState.IsKeyDown(Keys.Up))
+            //{
+            //    cameraPosition -= (float)gameTime.ElapsedGameTime.TotalSeconds * cameraSpeed * Vector2.UnitY;
+            //}
+            //if (keyboardState.IsKeyDown(Keys.Down))
+            //{
+            //    cameraPosition += (float)gameTime.ElapsedGameTime.TotalSeconds * cameraSpeed * Vector2.UnitY;
+            //}
 
             if (keyboardState.IsKeyDown(Keys.OemComma))
             {
@@ -86,7 +88,7 @@ namespace FarmingSimulator
 
             cameraScale = (cameraScale < 0) ? 0 : cameraScale;
             Camera.Main.SetScale(cameraScale);
-            Camera.Main.SetPosition(cameraPosition);
+            //Camera.Main.SetPosition(cameraPosition);
 
             base.Update(gameTime);
         }
