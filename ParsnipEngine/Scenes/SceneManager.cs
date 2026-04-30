@@ -26,7 +26,21 @@ namespace ParsnipEngine.Scenes
         /// </summary>
         /// <param name="sceneName">File name of the JSON scene file</param>
         public static void LoadScene(string sceneName)
-            => CurrentScene = Scene.CreateFromJSON(sceneName);
+        {
+            CurrentScene = Scene.CreateFromJSON(sceneName);
+            Initialize();
+        }
+
+        /// <summary>
+        /// Initializes all entities after scene is loaded.
+        /// </summary>
+        public static void Initialize()
+        {
+            foreach (var entity in CurrentScene.GetEntities())
+            {
+                entity.Initialize();
+            }
+        }
 
         /// <summary>
         /// Updates all entities in <see cref="CurrentScene"/>.

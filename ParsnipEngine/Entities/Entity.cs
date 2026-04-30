@@ -30,7 +30,7 @@ namespace ParsnipEngine.Entities
         private readonly Dictionary<Type, IComponent> _components = [];
 
         // Constructor
-        public Entity() => Initialize();
+        public Entity() { }
 
         /// <summary>
         /// Abstract method used to register entity to <see cref="EntityRegistry"/>.
